@@ -1,0 +1,2 @@
+import {I} from './Icon';
+export function TopBar({offline,onInstall}:{offline:boolean;onInstall:()=>void}){return <header className="topbar"><div className="brand"><img src="/icons/icon-64.png"/><div><strong>REC Mainpuri</strong><small>Electrical Engineering</small></div></div><div className="top-actions">{offline&&<span className="offline"><I.WifiOff size={14}/> OFFLINE</span>}<button onClick={onInstall} className="icon-btn" aria-label="Install app"><I.Download size={19}/></button></div></header>}

@@ -1,0 +1,48 @@
+import type { Day, ScheduleEntry } from '../types';
+const E=(day:Day,start:string,end:string,raw:string,kind:'class'|'library'|'lunch'|'sports'|'activity'='class'):ScheduleEntry=>{
+ const m=raw.match(/^([A-Z0-9]+) \(([^)]+)\)(?: (G[12]))?(?: ?T)?/); const tutorial=/\bT\b/.test(raw); const group=m?.[3];
+ const code=m?.[1]; const abbr=m?.[2];
+ return {id:`${day}-${start}-${raw}`,day,start,end,code,abbr,group,kind,tutorial,alternative:raw};
+};
+const rows:ScheduleEntry[]=[];
+function add(day:Day,start:string,end:string,raw:string,kind:any='class'){rows.push(E(day,start,end,raw,kind));}
+add('Monday','10:00','10:50','AID151 (IC) G1 / AAS152C (AKA) G2');
+add('Monday','11:40','12:30','Library','library');
+add('Monday','12:30','13:20','AAS103C (APS)');
+add('Monday','14:20','15:10','AAS103C (APS) T');
+add('Monday','15:10','16:50','AEC151A (PR) G1 / Library G2');
+add('Monday','16:50','17:40','Sports & Yoga','sports');
+add('Tuesday','10:00','10:50','AME101A (YSR)');
+add('Tuesday','10:50','11:40','AEC101A (PR)');
+add('Tuesday','11:40','12:30','AAS102C (AKA)');
+add('Tuesday','12:30','13:20','AAS103C (APS)');
+add('Tuesday','14:20','16:00','Library','library');
+add('Tuesday','16:00','16:50','AID151 (IC) G2 / Library G1');
+add('Tuesday','16:50','17:40','Sports & Yoga','sports');
+add('Wednesday','10:00','10:50','AAS152C (AKA) G1 / AEC151A (PR) G2');
+add('Wednesday','10:50','11:40','AAS152C (AKA) G1 / AEC151A (PR) G2');
+add('Wednesday','11:40','12:30','AID151 (SS) T');
+add('Wednesday','12:30','13:20','AAS103C (APS)');
+add('Wednesday','14:20','15:10','ACS101 (RKS) T');
+add('Wednesday','15:10','16:50','AGP151 (AKM) G2 / Library G1');
+add('Wednesday','16:50','17:40','Sports & Yoga','sports');
+add('Thursday','10:00','10:50','AME101A (YSR)');
+add('Thursday','10:50','11:40','AAS102C (AKA)');
+add('Thursday','11:40','12:30','ACS101 (RKS)');
+add('Thursday','12:30','13:20','AEC101A (PR) T');
+add('Thursday','14:20','15:10','AAS104 (APS)');
+add('Thursday','15:10','16:00','Library','library');
+add('Thursday','16:00','16:50','AAC101 (ND)');
+add('Thursday','16:50','17:40','Sports & Yoga','sports');
+add('Friday','10:00','10:50','ACS101 (RKS)');
+add('Friday','10:50','11:40','AAC101 (ND)');
+add('Friday','11:40','12:30','AEC101A (PR)');
+add('Friday','12:30','13:20','AAS104 (APS)');
+add('Friday','14:20','15:10','AAS102C (AKA)');
+add('Friday','15:10','16:50','AGP151 (AKM) G1 / Library G2');
+add('Friday','16:50','17:40','Sports & Yoga','sports');
+add('Saturday','10:00','17:40','Institutional / Department / Incubational Activity','activity');
+// Preserve the official lunch period as a structural break, not a free period.
+export const schedule=rows;
+export const dayOrder:Day[]=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+export const timeSlots=[['10:00','10:50'],['10:50','11:40'],['11:40','12:30'],['12:30','13:20'],['13:20','14:20'],['14:20','15:10'],['15:10','16:00'],['16:00','16:50'],['16:50','17:40']];
