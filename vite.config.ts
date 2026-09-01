@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+  base: '/rec-mainpuri-timetable---electrical-/',
   plugins: [react(), VitePWA({
     registerType: 'autoUpdate',
     includeAssets: ['campus.jpg','icons/icon-64.png','official-timetable.pdf'],
